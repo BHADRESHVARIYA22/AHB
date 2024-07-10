@@ -48,8 +48,4 @@
   - However, a Subordinate can request that the Manager extends the data phase by using HREADY. This signal, when LOW, causes wait states to be inserted into the transfer and enables the Subordinate to have extra time to provide or sample data.
   - The Subordinate uses HRESP to indicate the success or failure of a transfer.
 
- 
-
-
-
-# **1. About AHB Protocol**
+# **2. Signal Descriptions**
