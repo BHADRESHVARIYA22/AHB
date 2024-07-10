@@ -127,10 +127,21 @@
      - Each Subordinate has its own select signal HSELx and this signal indicates that the current transfer is intended for the selected Subordinate.  
      - When the Subordinate is initially selected, it must also monitor the status of HREADY to ensure that the previous bus transfer has completed, before it responds to the current transfer.   
      - When a Subordinate is selected for a non-IDLE transfer, HSELx must be asserted in the same cycle as the address and other control signals.   
-     - HSELx can be asserted or deasserted for IDLE transfers.  
+     - HSELx can be asserted or deasserted for IDLE transfers.
+       
   - The letter x used in HSELx must be changed to a unique identifier for each Subordinate in a system. For example, HSEL_S1, HSEL_S2, and HSEL_Memory.  
   - Usually the decoder also provides the multiplexor with the HSELx signals, or a signal or bus derived from the HSELx signals, to enable the multiplexor to route the appropriate signals, from the selected Subordinate to the Manager.  
   - It is important that these additional multiplexor control signals are retimed to the data phase.  
- ## 2.5 Multiplexor signals  
+ ## 2.5 Multiplexor signals   
+  - **HRDATA** Manager DATA_WIDTH  
+    - Read data bus, selected by the decoder  
+  - **HREADY** Manager and Subordinate 1  
+    - When HIGH, the HREADY signal indicates to the Manager and all Subordinates, that the previous transfer is complete.  
+  - **HRESP** Manager 1  
+    - Transfer response, selected by the decoder   
+  - **HEXOKAY** Manager 1  
+    - Exclusive okay, selected by the decoder  
+      
+  - Because the HRDATA, HRESP, and HEXOKAY signals pass through the multiplexor and retain the same signal naming, the full signal descriptions for these three signals are provided in **2.3 Subordinate signals**.  
  
     
