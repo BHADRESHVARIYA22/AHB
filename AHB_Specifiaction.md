@@ -18,7 +18,7 @@
     - A Subordinate responds to transfers initiated by Managers in the system. The Subordinate uses the HSELx select signal from the decoder to control when it responds to a bus transfer.  
     - The Subordinate signals back to the Manager:
       - The completion or extension of the bus transfer.  
-      - The success or failure of the bus transfer.
+      - The success or failure of the bus transfer.  
         ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/5cf0ca49-eb6e-4ad2-8748-d40ea67a4def)
   - ### 3. Interconnect  
     - An interconnect component provides the connection between Managers and Subordinates in a system.  
