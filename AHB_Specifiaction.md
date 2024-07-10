@@ -33,7 +33,20 @@
     - #### 3.2 Multiplexor  
     - A Subordinate-to-Manager multiplexor is required to multiplex the read data bus and response signals from the Subordinates to the Manager.  
     - The decoder provides control for the multiplexor.   
-    - A single centralized multiplexor is required in all implementations that use two or more Subordinates.  
+    - A single centralized multiplexor is required in all implementations that use two or more Subordinates.
+## Operation  
+  - The Manager starts a transfer by driving the address and control signals.  
+  - These signals provide information about the address, direction, width of the transfer, and indicate if the transfer forms part of a burst. Transfers can be:
+    - Single
+    - Incrementing bursts that do not wrap at address boundaries.
+    - Wrapping bursts that wrap at particular address boundaries.  
+  - The write data bus moves data from the Manager to a Subordinate, and the read data bus moves data from a Subordinate to the Manager.
+  - Every transfer consists of:  
+    - **Address phase** One address and control cycle.
+    - **Data phase** One or more cycles for the data.
+  - A Subordinate cannot request that the address phase is extended and therefore all Subordinates must be capable of sampling the address during this time.  
+  - However, a Subordinate can request that the Manager extends the data phase by using HREADY. This signal, when LOW, causes wait states to be inserted into the transfer and enables the Subordinate to have extra time to provide or sample data.
+  - The Subordinate uses HRESP to indicate the success or failure of a transfer.
 
  
 
