@@ -108,7 +108,29 @@
      - Indicates the transfer direction. When HIGH this signal indicates a write transfer and when LOW a read transfer.  
      - It has the same timing as the address signals, however, it must remain constant throughout a burst transfer.  
  ## 2.3 Subordinate signals  
- ## 2.4 Decoder signals  
+   - **HRDATA** Multiplexor DATA_WIDTH  
+     - During read operations, the read data bus transfers data from the selected Subordinate to the multiplexor.  
+     - The multiplexor then transfers the data to the Manager.  
+     - DATA_WIDTH can be 8, 16, 32, 64, 128, 256, 512, or 1024. However, any value smaller than 32 or larger than 256 is not recommended.  
+   - **HREADYOUT** Multiplexor 1  
+     - When HIGH, the HREADYOUT signal indicates that a transfer has finished on the bus.   
+     - This signal can be driven LOW to extend a transfer.  
+   - **HRESP** Multiplexor 1  
+     - The transfer response provides the Manager with additional information on the status of a transfer.  
+     - When LOW, the HRESP signal indicates that the transfer status is OKAY.  
+     - When HIGH, the HRESP signal indicates that the transfer status is ERROR.  
+   - **HEXOKAY** Multiplexor 1   
+     - Exclusive Okay. Indicates the success or failure of an Exclusive Transfer.  
+     - This signal is supported if the AHB5 Exclusive_Transfers property is True.  
+ ## 2.4 Decoder signals    
+   - **HSELxa** Subordinate 1  
+     - Each Subordinate has its own select signal HSELx and this signal indicates that the current transfer is intended for the selected Subordinate.  
+     - When the Subordinate is initially selected, it must also monitor the status of HREADY to ensure that the previous bus transfer has completed, before it responds to the current transfer.   
+     - When a Subordinate is selected for a non-IDLE transfer, HSELx must be asserted in the same cycle as the address and other control signals.   
+     - HSELx can be asserted or deasserted for IDLE transfers.  
+  - The letter x used in HSELx must be changed to a unique identifier for each Subordinate in a system. For example, HSEL_S1, HSEL_S2, and HSEL_Memory.  
+  - Usually the decoder also provides the multiplexor with the HSELx signals, or a signal or bus derived from the HSELx signals, to enable the multiplexor to route the appropriate signals, from the selected Subordinate to the Manager.  
+  - It is important that these additional multiplexor control signals are retimed to the data phase.  
  ## 2.5 Multiplexor signals  
  
     
