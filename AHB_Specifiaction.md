@@ -193,16 +193,53 @@ control the overall progress.
     - The bus is locked after a cycle with HMASTLOCK asserted, HSEL asserted if present, and HREADY is HIGH.
     - The bus is unlocked after a cycle with HMASTLOCK deasserted and HREADY is HIGH.
     - After a locked transfer, it is recommended that the Manager inserts an IDLE transfer.
-    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4e061dc8-10c5-424e-b2e9-2a485cc8c2fe)
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4e061dc8-10c5-424e-b2e9-2a485cc8c2fe)  
 
-    - Most Subordinates have no requirement to implement HMASTLOCK because they are only capable of performing transfers in the order they are received.  
-    - Subordinates that can be accessed by more than one Manager, for example, a Multi-Port Memory Controller (MPMC) must implement the HMASTLOCK signal.
-    - It is permitted for a Manager to assert HMASTLOCK for IDLE transfers at the beginning, in the middle, or at the end of a sequence of locked transfers.
-    - Using locked IDLE transfers at the start or end of a locked transfer sequence is permitted, but not recommended, as this behavior can adversely affect the arbitration of the system.
-    - It is also permitted, but not recommended, for a Manager to assert HMASTLOCK for a number of IDLE transfers and then deassert HMASTLOCK without performing a non-IDLE transfer.
-    - This behavior can adversely affect the arbitration of the system.
-    - It is required that all transfers in a locked sequence are to the same Subordinate address region.
-    - Note : The requirement to ensure that all transfers in a locked sequence are to the same Subordinate address region did not exist in Issue A of this specification. A legacy component must be verified to ensure that it does not exhibit this behavior.
+    - Most Subordinates have no requirement to implement HMASTLOCK because they are only capable of performing transfers in the order they are received.    
+    - Subordinates that can be accessed by more than one Manager, for example, a Multi-Port Memory Controller (MPMC) must implement the HMASTLOCK signal.  
+    - It is permitted for a Manager to assert HMASTLOCK for IDLE transfers at the beginning, in the middle, or at the end of a sequence of locked transfers.  
+    - Using locked IDLE transfers at the start or end of a locked transfer sequence is permitted, but not recommended, as this behavior can adversely affect the arbitration of the system.  
+    - It is also permitted, but not recommended, for a Manager to assert HMASTLOCK for a number of IDLE transfers and then deassert HMASTLOCK without performing a non-IDLE transfer.  
+    - This behavior can adversely affect the arbitration of the system.  
+    - It is required that all transfers in a locked sequence are to the same Subordinate address region.  
+    - Note : The requirement to ensure that all transfers in a locked sequence are to the same Subordinate address region did not exist in Issue A of this specification. A legacy component must be verified to ensure that it does not exhibit this behavior.  
+   
+## 3.4 Transfer size    
+  - HSIZE[2:0] indicates the size of a data transfer.  
+  - The transfer size set by HSIZE must be less than or equal to the width of the data bus. For example, with a 32-bit data bus, HSIZE must only use the values 0b000, 0b001, or 0b010.  
+  - The HSIZE signals have the same timing as the address bus. However, they must remain constant throughout a burst transfer.   
+  - HSIZE in conjunction with HBURST determines the address boundary for wrapping bursts.
+  - **Transfer size encoding**
+  - HSIZE = 0 : 1 byte
+  - HSIZE = 1 : 2 byte
+  - HSIZE = 2 : 3 byte
+  - HSIZE = 3 : 4 byte
+  - HSIZE = 4 : 5 byte
+  - HSIZE = 5 : 6 byte
+  - HSIZE = 6 : 7 byte
+  - HSIZE = 7 : 8 byte
+
+## 3.5 Write strobes pending **************
+Write strobes is an optional feature, which enables a Manager to issue a write that updates only a subset of active
+write data bytes. The Write_Strobes property indicates if an interface supports write strobes.
+True Write strobes are supported and HWSTRB is included on the interface.
+False Write strobes are not supported and HWSTRB is not included on the interface.
+Note
+If Write_Strobes is not declared, it is considered as False.
+
+### 3.6 Burst operation
+  - Bursts of 4, 8, and 16-beats, undefined length bursts, and single transfers are defined in this protocol.
+  - It supports incrementing and wrapping bursts:
+  - Incrementing bursts access sequential locations and the address of each transfer in the burst is an increment of the previous address.
+  - Wrapping bursts wrap when they cross an address boundary. The address boundary is calculated as the product of the number of beats in a burst and the size of the transfer.
+  - The number of beats are controlled by HBURST and the transfer size is controlled by HSIZE.
+  - For example, a four-beat wrapping burst of word (4-byte) accesses wraps at 16-byte boundaries.
+  - Therefore, if the start address of the burst is 0x34, then it consists of four transfers to addresses 0x34, 0x38, 0x3C, and 0x30.
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4eed1b38-6329-4ed4-8459-7ccbf0bc168b)
+    
+
+
+  
     
 
 
