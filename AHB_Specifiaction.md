@@ -237,6 +237,8 @@ If Write_Strobes is not declared, it is considered as False.
   - No of Bytes = HBRUST * (2^ HSIZE)
   - Lower Boundary = Start_address - (start_Address % no_of_bytes)
   - Upper Boundary = lower Boundary + No of bytes
+
+    
   - Bursts of 4, 8, and 16-beats, undefined length bursts, and single transfers are defined in this protocol.
   - It supports incrementing and wrapping bursts:
   - Incrementing bursts access sequential locations and the address of each transfer in the burst is an increment of the previous address.
