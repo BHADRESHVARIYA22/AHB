@@ -185,8 +185,15 @@ control the overall progress.
   - **T4-T5** The Manager performs the last beat. The Subordinate is unable to complete the transfer and uses HREADYOUT to insert a single wait state.  
   - **T5-T6** The Subordinate provides the read data for the third beat.  
   - **T6-T7** The Subordinate provides the read data for the last beat.
-
-
+## 3.3 Locked transfers   
+  - If the Manager requires locked accesses, then it must also assert the HMASTLOCK signal.
+  - This signal indicates to any Subordinate that the current transfer sequence is indivisible and must therefore be processed before any other transfers are processed.
+  - Typically the locked transfer is used to maintain the integrity of a semaphore, by ensuring that the Subordinate does not perform other operations between the read and write phases of a microprocessor SWP instruction.
+  - In a locked sequence:
+    - The bus is locked after a cycle with HMASTLOCK asserted, HSEL asserted if present, and HREADY is HIGH.
+    - The bus is unlocked after a cycle with HMASTLOCK deasserted and HREADY is HIGH.
+    - After a locked transfer, it is recommended that the Manager inserts an IDLE transfer.
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4e061dc8-10c5-424e-b2e9-2a485cc8c2fe)
     
 
 
