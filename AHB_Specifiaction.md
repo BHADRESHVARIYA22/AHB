@@ -142,6 +142,54 @@
   - **HEXOKAY** Manager 1  
     - Exclusive okay, selected by the decoder  
       
-  - Because the HRDATA, HRESP, and HEXOKAY signals pass through the multiplexor and retain the same signal naming, the full signal descriptions for these three signals are provided in **2.3 Subordinate signals**.  
+  - Because the HRDATA, HRESP, and HEXOKAY signals pass through the multiplexor and retain the same signal naming, the full signal descriptions for these three signals are provided in **2.3 Subordinate signals**.
+# 3.Transfer  
+## 3.1 Basic Transfers  
+  - A transfer consists of two phases:  
+    - **Address** Lasts for a single HCLK cycle unless it is extended by the previous bus transfer.  
+    - **Data** Might require several HCLK cycles. Use the HREADY signal to control the number of clock cycles required to complete the transfer.  
+  - **HWRITE** controls the direction of data transfer to or from the Manager. Therefore, when:
+    - HWRITE is **HIGH**, it indicates a **write** transfer and the Manager broadcasts data on the write data bus,HWDATA.
+    - HWRITE is **LOW**, a **read** transfer is performed, and the Subordinate must generate the data on the read data bus, HRDATA.
+  - The simplest transfer is one with no wait states, so the transfer consists of one address cycle and one data cycle.
+  - **Transfer with no wait states**
+  - Figure 3-1 shows a simple read transfer and Figure 3-2 shows a simple write transfer.
+
+  - ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/0200f3d7-ff2c-49f0-90a9-ea808b79a1f5)  
+  - In a simple transfer with no wait states:  
+    - The Manager drives the address and control signals onto the bus after the rising edge of HCLK.
+    - The Subordinate then samples the address and control information on the next rising edge of HCLK.
+    - After the Subordinate has sampled the address and control it can start to drive the appropriate HREADYOUT response. This response is sampled by the Manager on the third rising edge of HCLK.
+  - The address phase of any transfer occurs during the data phase of the previous transfer. This overlapping of address and data is fundamental to the pipelined nature of the bus and enables high-performance operation while still providing adequate time for a Subordinate to provide the response to a transfer
+    
+  - **Transfer with Wait State**  
+  - A Subordinate can insert wait states into any transfer to enable additional time for completion. Each Subordinate has an HREADYOUT signal that it drives during the data phase of a transfer. The interconnect is responsible for combining the HREADYOUT signals from all Subordinates to generate a single HREADY signal that is used to
+control the overall progress.
+  - ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/cd604d12-6def-45fe-a06e-716c0d5a75f7)
+  -  **Multiple transfers**
+  - ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/90f94562-09bc-4cc1-91d7-1e88efd2dc10)
+  - In Figure 3-5:
+    - The transfers to addresses A and C are zero wait state
+    - The transfer to address B is one wait state
+    - Extending the data phase of the transfer to address B has the effect of extending the address phase of the transfer to address C.
+## 3.2 Transfer Type   
+  - lists the transfers that can be classified into one of four types, as controlled by HTRANS[1:0].
+  -  ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/69a212aa-0ea6-4017-b781-fd9c8cd39c11)
+  - **Use of the NONSEQ, BUSY, and SEQ transfer types**  
+  - **T0-T1** : The 4-beat read starts with a NONSEQ transfer.  
+  - **T1-T2** The Manager is unable to perform the second beat and inserts a BUSY transfer to delay the start of the second beat. The Subordinate provides the read data for the first beat.  
+  - **T2-T3** The Manager is now ready to start the second beat, so a SEQ transfer is signaled. The Manager ignores any data that the Subordinate provides on the read data bus.  
+  - **T3-T4** The Manager performs the third beat.The Subordinate provides the read data for the second beat.  
+  - **T4-T5** The Manager performs the last beat. The Subordinate is unable to complete the transfer and uses HREADYOUT to insert a single wait state.  
+  - **T5-T6** The Subordinate provides the read data for the third beat.  
+  - **T6-T7** The Subordinate provides the read data for the last beat.  
+
+    
+
+
+
+    
+
+  
  
     
