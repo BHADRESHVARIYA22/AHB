@@ -238,7 +238,7 @@ If Write_Strobes is not declared, it is considered as False.
   - Lower Boundary = Start_address - (start_Address % no_of_bytes)
   - Upper Boundary = lower Boundary + No of bytes
 
-    
+             
   - Bursts of 4, 8, and 16-beats, undefined length bursts, and single transfers are defined in this protocol.
   - It supports incrementing and wrapping bursts:
   - Incrementing bursts access sequential locations and the address of each transfer in the burst is an increment of the previous address.
@@ -246,7 +246,7 @@ If Write_Strobes is not declared, it is considered as False.
   - The number of beats are controlled by HBURST and the transfer size is controlled by HSIZE.
   - For example, a four-beat wrapping burst of word (4-byte) accesses wraps at 16-byte boundaries.
   - Therefore, if the start address of the burst is 0x34, then it consists of four transfers to addresses 0x34, 0x38, 0x3C, and 0x30.  
-  **lists the possible burst types**
+  **lists the possible burst types**  
     ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4eed1b38-6329-4ed4-8459-7ccbf0bc168b)
 
   - Managers must not attempt to start an incrementing burst that crosses a 1KB address boundary.
