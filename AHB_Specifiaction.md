@@ -152,7 +152,7 @@
     - HWRITE is **HIGH**, it indicates a **write** transfer and the Manager broadcasts data on the write data bus,HWDATA.
     - HWRITE is **LOW**, a **read** transfer is performed, and the Subordinate must generate the data on the read data bus, HRDATA.
   - The simplest transfer is one with no wait states, so the transfer consists of one address cycle and one data cycle.
-  - **Transfer with no wait states**
+  - ### **Transfer with no wait states**
   - Figure 3-1 shows a simple read transfer and Figure 3-2 shows a simple write transfer.
 
   - ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/0200f3d7-ff2c-49f0-90a9-ea808b79a1f5)  
@@ -162,20 +162,22 @@
     - After the Subordinate has sampled the address and control it can start to drive the appropriate HREADYOUT response. This response is sampled by the Manager on the third rising edge of HCLK.
   - The address phase of any transfer occurs during the data phase of the previous transfer. This overlapping of address and data is fundamental to the pipelined nature of the bus and enables high-performance operation while still providing adequate time for a Subordinate to provide the response to a transfer
     
-  - **Transfer with Wait State**  
+  - ### **Transfer with Wait State**  
   - A Subordinate can insert wait states into any transfer to enable additional time for completion. Each Subordinate has an HREADYOUT signal that it drives during the data phase of a transfer. The interconnect is responsible for combining the HREADYOUT signals from all Subordinates to generate a single HREADY signal that is used to
 control the overall progress.
-  - ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/cd604d12-6def-45fe-a06e-716c0d5a75f7)
-  -  **Multiple transfers**
-  - ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/90f94562-09bc-4cc1-91d7-1e88efd2dc10)
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/cd604d12-6def-45fe-a06e-716c0d5a75f7)
+  -  ### **Multiple transfers**
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/90f94562-09bc-4cc1-91d7-1e88efd2dc10)
   - In Figure 3-5:
     - The transfers to addresses A and C are zero wait state
     - The transfer to address B is one wait state
     - Extending the data phase of the transfer to address B has the effect of extending the address phase of the transfer to address C.
 ## 3.2 Transfer Type   
   - lists the transfers that can be classified into one of four types, as controlled by HTRANS[1:0].
-  -  ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/69a212aa-0ea6-4017-b781-fd9c8cd39c11)
-  - **Use of the NONSEQ, BUSY, and SEQ transfer types**  
+     ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/69a212aa-0ea6-4017-b781-fd9c8cd39c11)
+  - ### **Use of the NONSEQ, BUSY, and SEQ transfer types**
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/1f66dd6c-849e-457d-8b83-04b9f56ac2e1)
+
   - **T0-T1** : The 4-beat read starts with a NONSEQ transfer.  
   - **T1-T2** The Manager is unable to perform the second beat and inserts a BUSY transfer to delay the start of the second beat. The Subordinate provides the read data for the first beat.  
   - **T2-T3** The Manager is now ready to start the second beat, so a SEQ transfer is signaled. The Manager ignores any data that the Subordinate provides on the read data bus.  
