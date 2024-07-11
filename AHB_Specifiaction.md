@@ -246,7 +246,7 @@ If Write_Strobes is not declared, it is considered as False.
   - The number of beats are controlled by HBURST and the transfer size is controlled by HSIZE.
   - For example, a four-beat wrapping burst of word (4-byte) accesses wraps at 16-byte boundaries.
   - Therefore, if the start address of the burst is 0x34, then it consists of four transfers to addresses 0x34, 0x38, 0x3C, and 0x30.  
-  **lists the possible burst types**  
+#### **lists the possible burst types**  
     ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4eed1b38-6329-4ed4-8459-7ccbf0bc168b)
 
   - Managers must not attempt to start an incrementing burst that crosses a 1KB address boundary.
@@ -255,6 +255,29 @@ If Write_Strobes is not declared, it is considered as False.
     - Undefined length burst that has a burst of length one.
   - The burst size indicates the number of beats in the burst and not the number of bytes transferred. Calculate the total amount of data transferred in a burst by multiplying the number of beats by the amount of data in each beat, as
 indicated by HSIZE[2:0].
+
+### 3.6.3  Burst operation
+  - #### write transfer using a four-beat wrapping burst, with a wait state added for the first transfer.  
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/8cabc735-01e5-4cb0-b3a2-c751d00b0af0) 
+  - the burst is a four-beat burst of word transfers, the address wraps at 16-byte boundaries, and the transfer to address 0x3C is followed by a transfer to address 0x30.  
+  - #### read transfer using a four-beat incrementing burst, with a wait state added for the first transfer.  
+   ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4faab50e-e242-4092-bc37-293887f30bb3)  
+  - In this case, the address does not wrap at a 16-byte boundary and the address 0x3C is followed by a transfer to address 0x40.
+  - #### read transfer using an eight-beat wrapping burst.
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/c47f61bb-95c6-4278-8218-848f16e19bc1)
+  - the burst is an eight-beat burst of word transfers, the address wraps at 32-byte boundaries, and the transfer to address 0x3C is followed by a transfer to address 0x20.
+  - ##### write transfer using an eight-beat incrementing burst.  
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/c366370e-3297-455c-a2ba-36db76b57091)
+  - This burst uses halfword transfers, therefore the addresses increase by two. Because the burst is incrementing, the addresses continue to increment beyond the 16-byte address boundary.
+  - #### incrementing bursts of undefined length.
+![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/41304547-9257-4c9b-8149-d251657d64c5)
+
+  - The first burst is a write consisting of two halfword transfers starting at address 0x20. These transfer addresses increment by two.
+  - The second burst is a read consisting of three word transfers starting at address 0x5C. These transfer addresses increment by four.
+
+
+
+
 
 
 
