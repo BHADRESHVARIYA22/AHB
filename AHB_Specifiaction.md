@@ -166,12 +166,12 @@
   - A Subordinate can insert wait states into any transfer to enable additional time for completion. Each Subordinate has an HREADYOUT signal that it drives during the data phase of a transfer. The interconnect is responsible for combining the HREADYOUT signals from all Subordinates to generate a single HREADY signal that is used to
 control the overall progress.
     ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/cd604d12-6def-45fe-a06e-716c0d5a75f7)
-  -  ### **Multiple transfers**
-    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/90f94562-09bc-4cc1-91d7-1e88efd2dc10)
-  - In Figure 3-5:
-    - The transfers to addresses A and C are zero wait state
-    - The transfer to address B is one wait state
-    - Extending the data phase of the transfer to address B has the effect of extending the address phase of the transfer to address C.
+    -  ### **Multiple transfers**  
+    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4e238040-e3f5-49a8-94d3-65356cdefccd)  
+    - In Figure 3-5:  
+    - The transfers to addresses A and C are zero wait state  
+    - The transfer to address B is one wait state  
+    - Extending the data phase of the transfer to address B has the effect of extending the address phase of the transfer to address C.  
 ## 3.2 Transfer Type   
   - lists the transfers that can be classified into one of four types, as controlled by HTRANS[1:0].
      ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/69a212aa-0ea6-4017-b781-fd9c8cd39c11)
