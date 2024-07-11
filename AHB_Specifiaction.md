@@ -184,7 +184,8 @@ control the overall progress.
   - **T3-T4** The Manager performs the third beat.The Subordinate provides the read data for the second beat.  
   - **T4-T5** The Manager performs the last beat. The Subordinate is unable to complete the transfer and uses HREADYOUT to insert a single wait state.  
   - **T5-T6** The Subordinate provides the read data for the third beat.  
-  - **T6-T7** The Subordinate provides the read data for the last beat.  
+  - **T6-T7** The Subordinate provides the read data for the last beat.
+
 
     
 
