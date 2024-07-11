@@ -194,6 +194,15 @@ control the overall progress.
     - The bus is unlocked after a cycle with HMASTLOCK deasserted and HREADY is HIGH.
     - After a locked transfer, it is recommended that the Manager inserts an IDLE transfer.
     ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4e061dc8-10c5-424e-b2e9-2a485cc8c2fe)
+
+    - Most Subordinates have no requirement to implement HMASTLOCK because they are only capable of performing transfers in the order they are received.  
+    - Subordinates that can be accessed by more than one Manager, for example, a Multi-Port Memory Controller (MPMC) must implement the HMASTLOCK signal.
+    - It is permitted for a Manager to assert HMASTLOCK for IDLE transfers at the beginning, in the middle, or at the end of a sequence of locked transfers.
+    - Using locked IDLE transfers at the start or end of a locked transfer sequence is permitted, but not recommended, as this behavior can adversely affect the arbitration of the system.
+    - It is also permitted, but not recommended, for a Manager to assert HMASTLOCK for a number of IDLE transfers and then deassert HMASTLOCK without performing a non-IDLE transfer.
+    - This behavior can adversely affect the arbitration of the system.
+    - It is required that all transfers in a locked sequence are to the same Subordinate address region.
+    - Note : The requirement to ensure that all transfers in a locked sequence are to the same Subordinate address region did not exist in Issue A of this specification. A legacy component must be verified to ensure that it does not exhibit this behavior.
     
 
 
