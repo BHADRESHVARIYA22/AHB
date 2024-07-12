@@ -356,7 +356,8 @@ If Write_Strobes is not declared, it is considered as False.
     - #### BUSY transfer, undefined length burst
     - During a waited transfer for an undefined length burst, INCR, the master is permitted to change from BUSY to any other transfer type, when HREADY is LOW.
     - The burst continues if a SEQ transfer is performed but terminates if an IDLE or NONSEQ transfer is performed.
-    ![image](https://github.com/user-attachments/assets/ef23e25b-7e23-44ae-b7dd-27c952e41c3c)
+      ![image](https://github.com/user-attachments/assets/cc2a1b63-8b8e-486a-946c-2f57a07eff51)
+
     - **T0-T1** The Manager initiates the next beat of the INCR burst to address 0x64.
     - **T1-T3** The Manager inserts a BUSY transfer to address 0x68.The Subordinate inserts wait states with HREADYOUT = LOW.
     - **T3-T4** The Manager changes the transfer type to NONSEQ and initiates a new burst to address 0x10.
