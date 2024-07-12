@@ -340,9 +340,31 @@ If Write_Strobes is not declared, it is considered as False.
     - **T4-T6** With HREADY LOW, the Manager must keep HTRANS constant.
     - **T5-T6** SINGLE burst to address A completes with HREADY HIGH and the Manager starts the first beat to address B.
     - **T6-T7** First beat of the INCR4 transfer to address B completes and the Manager starts the next beat to address B+4.
-
-    - A
+    - #### BUSY transfer, fixed-length burst
+    - During a waited transfer for a fixed-length burst, the Master is permitted to change the transfer type from BUSY to SEQ.
+    - When the HTRANS transfer type changes to SEQ the Master must keep HTRANS constant, until HREADY is HIGH.
+    - Note : Because BUSY transfers must only be inserted between successive beats of a burst, this does not apply to SINGLE bursts. Therefore this situation applies to the following burst types:
+      - INCR4, INCR8, and INCR16.
+      - WRAP4, WRAP8, and WRAP16.
+     ![image](https://github.com/user-attachments/assets/1a7d3436-cfa7-4897-9c48-581c9615d1ca)
+    - **T0-T1** The Manager initiates the next beat of the INCR4 burst to address 0x24.
+    - **T1-T3** The Manager inserts a BUSY transfer to address 0x28.The Subordinate inserts wait states with HREADYOUT = LOW.
+    - **T3-T4** The Manager changes the transfer type to SEQ and initiates the next beat of the burst to address 0x28.
+    - **T4-T6** With HREADY LOW, the Manager must keep HTRANS constant.
+    - **T5-T6** Beat to address 0x24 completes with HREADY HIGH.
+    - **T6-T7** Third beat of the INCR4 transfer to address 0x28 completes and the Manager starts the final beat to address 0x2C.
+    - #### BUSY transfer, undefined length burst
+    - During a waited transfer for an undefined length burst, INCR, the master is permitted to change from BUSY to any other transfer type, when HREADY is LOW.
+    - The burst continues if a SEQ transfer is performed but terminates if an IDLE or NONSEQ transfer is performed.
+    ![image](https://github.com/user-attachments/assets/ef23e25b-7e23-44ae-b7dd-27c952e41c3c)
+    - **T0-T1** The Manager initiates the next beat of the INCR burst to address 0x64.
+    - **T1-T3** The Manager inserts a BUSY transfer to address 0x68.The Subordinate inserts wait states with HREADYOUT = LOW.
+    - **T3-T4** The Manager changes the transfer type to NONSEQ and initiates a new burst to address 0x10.
+    - **T4-T6** With HREADY LOW, the Manager must keep HTRANS constant.
+    - **T5-T6** Undefined length burst completes with HREADY HIGH and the Manager starts the first beat to address 0x10.
+    - **T6-T7** First beat of the INCR4 transfer to address 0x10 completes and the Manager starts the next beat to address 0x14.
   - ### 3.7.2 Address changes during wait states
+  - 
 
 
 
