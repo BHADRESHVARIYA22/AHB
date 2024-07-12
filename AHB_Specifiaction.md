@@ -253,8 +253,9 @@ If Write_Strobes is not declared, it is considered as False.
   - Managers can perform single transfers using either:
     - SINGLE transfer burst.
     - Undefined length burst that has a burst of length one.
-  - The burst size indicates the number of beats in the burst and not the number of bytes transferred. Calculate the total amount of data transferred in a burst by multiplying the number of beats by the amount of data in each beat, as
-indicated by HSIZE[2:0].
+  - The burst size indicates the number of beats in the burst and not the number of bytes transferred.  
+  - Calculate the total amount of data transferred in a burst by multiplying the number of beats by the amount of data in each beat, as indicated by HSIZE[2:0].
+  -  
 
 ### 3.6.3  Burst operation
   - #### write transfer using a four-beat wrapping burst, with a wait state added for the first transfer.  
