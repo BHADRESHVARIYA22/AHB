@@ -21,7 +21,10 @@
     - apb_slave_monitor.sv
     - apb_slave_seqr.sv
     - apb_scoreboard.sv
-    - TEST
-    - TOP
+  - TEST
+    - apb_test.sv
+    - apb_seqs.sv
+  - TOP
+    - apb_apb_tb.sv
 # 3. Test bench Initial Architecture
     
