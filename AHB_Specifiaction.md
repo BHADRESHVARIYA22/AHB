@@ -258,7 +258,18 @@ If Write_Strobes is not declared, it is considered as False.
   -  
 
 ### 3.6.3  Burst operation
-  - #### write transfer using a four-beat wrapping burst, with a wait state added for the first transfer.  
+  - #### write transfer using a four-beat wrapping burst, with a wait state added for the first transfer.
+  - Lower and Upper Boundary Calculation
+    - HSIZE = 2  :: single transfer size = 4 byte
+    - total byte = single transfer size + brust length = 4 + 4 = 16 byte
+    - Start Address = 38d = 56d
+    - LB = 56 - (56/16) = 56 - 8 = **48d** = **30h**
+    - UB = 48 + 16 = **64d** = **40h**
+    - 1st Address = 48d  = 30h
+    - 2nd Address = 52d (48 + 4) = 34h
+    - 3rd Address = 56d (56 + 4) = 38h
+    - 4th Address = 60d (56 + 4) = 3Ch
+      
     ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/8cabc735-01e5-4cb0-b3a2-c751d00b0af0) 
   - the burst is a four-beat burst of word transfers, the address wraps at 16-byte boundaries, and the transfer to address 0x3C is followed by a transfer to address 0x30.  
   - #### read transfer using a four-beat incrementing burst, with a wait state added for the first transfer.  
