@@ -231,7 +231,7 @@ False Write strobes are not supported and HWSTRB is not included on the interfac
 Note
 If Write_Strobes is not declared, it is considered as False.
 
-### 3.6 Burst operation 
+## 3.6 Burst operation 
   #### **Lower Boundary and Upper Boundary**
   - **HSIZE** : size of transfer data 
       - tranfer data size = 2 ^ HSIZE
@@ -320,6 +320,29 @@ If Write_Strobes is not declared, it is considered as False.
   - The first burst is a write consisting of two 2byte transfers starting at address 0x20. These transfer addresses increment by two.
   - The second burst is a read consisting of three 4byte transfers starting at address 0x5C. These transfer addresses increment by four.
 
+## 3.7 Waited Transfer   
+  - Slave use HREADYOUT signal to insert wait state
+    - HREADYOUT = 1 : Slvae Ready for transfer
+    - HREADYOUT = 0 : Slave not ready for transfer : master insert wait state
+  - ### 3.7.1 Transfer type changes during wait states
+    - When the Slave is requesting wait states, the Master must not change the transfer type, except as described in:
+      - IDLE transfer
+      - BUSY transfer, fixed-length burst
+      - BUSY transfer, undefined length burst
+    - #### IDLE transfer
+    - During a waited transfer, the Manager is permitted to change the transfer type from IDLE to NONSEQ.
+    - When the HTRANS transfer type changes to NONSEQ the Manager must keep HTRANS constant, until HREADY is HIGH.
+     ![image](https://github.com/user-attachments/assets/405c0ef0-46d4-4d62-a0d8-caf1e487a9ee)
+    - **T0-T1** The Manager initiates a SINGLE burst to address A.
+    - **T1-T2** The Manager inserts one IDLE transfer to address Y. The Subordinate inserts a wait state with HREADYOUT = LOW.
+    - **T2-T3** The Manager inserts one IDLE transfer to address Z.
+    - **T3-T4** The Manager changes the transfer type to NONSEQ and initiates an INCR4 transfer to address B.
+    - **T4-T6** With HREADY LOW, the Manager must keep HTRANS constant.
+    - **T5-T6** SINGLE burst to address A completes with HREADY HIGH and the Manager starts the first beat to address B.
+    - **T6-T7** First beat of the INCR4 transfer to address B completes and the Manager starts the next beat to address B+4.
+
+    - A
+  - ### 3.7.2 Address changes during wait states
 
 
 
