@@ -365,7 +365,30 @@ If Write_Strobes is not declared, it is considered as False.
     - **T5-T6** Undefined length burst completes with HREADY HIGH and the Manager starts the first beat to address 0x10.
     - **T6-T7** First beat of the INCR4 transfer to address 0x10 completes and the Manager starts the next beat to address 0x14.
   - ### 3.7.2 Address changes during wait states
-  - 
+    - When the Slave is requesting wait states, the Master can only change the address once, except as described in:
+      - During an IDLE transfer
+      - After an ERROR response
+      - #### During an IDLE transfer
+      - During a waited transfer, the Manager is permitted to change the address for IDLE transfers. When the HTRANS
+      - transfer type changes to NONSEQ, the Manager must keep the address constant until HREADY is HIGH.   
+      ![image](https://github.com/user-attachments/assets/4f2c5799-6d35-4869-b7d0-21a33abaf49d)
+      - T0-T1 The Manager initiates a SINGLE burst to address A.
+      - T1-T2 The Manager inserts one IDLE transfer to address Y. The Subordinate inserts a wait state with HREADYOUT = LOW.
+      - T2-T3 The Manager inserts one IDLE transfer to address Z.
+      - T3-T4 The Manager changes the transfer type to NONSEQ and initiates an INCR4 transfer to address B. Until HREADY goes HIGH, no more address changes are permitted.
+      - T5-T6 SINGLE burst to address A completes with HREADY HIGH and the Manager starts the first beat to address B.
+      - T6-T7 First beat of the INCR4 transfer to address B completes and the Manager starts the next beat to address B+4.   
+
+      - #### After an ERROR response
+      - During a waited transfer, if the Subordinate responds with an ERROR response, then the Manager is permitted to change the address when HREADY is LOW
+        ![image](https://github.com/user-attachments/assets/83907d69-e229-4d37-b6ac-281219e8d884)
+      - T0-T1 The Manager initiates the next beat of the burst to address 0x24.
+      - T1-T3 The Manager initiates the next beat of the burst to address 0x28.The Subordinate responds with OKAY.
+      - T3-T4 The Subordinate responds with ERROR.
+      - T4-T5 The Manager changes the transfer type to IDLE and is permitted to change the address while HREADY is LOW. The Subordinate completes the ERROR response.
+      - T5-T6 The Subordinate at address 0xC0 responds with OKAY.
+        
+
 
 
 
