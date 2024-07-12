@@ -246,8 +246,8 @@ If Write_Strobes is not declared, it is considered as False.
   - The number of beats are controlled by HBURST and the transfer size is controlled by HSIZE.
   - For example, a four-beat wrapping burst of word (4-byte) accesses wraps at 16-byte boundaries.
   - Therefore, if the start address of the burst is 0x34, then it consists of four transfers to addresses 0x34, 0x38, 0x3C, and 0x30.  
-#### **lists the possible burst types**  
-    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4eed1b38-6329-4ed4-8459-7ccbf0bc168b)
+#### **lists the possible burst types**   
+  ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4eed1b38-6329-4ed4-8459-7ccbf0bc168b)
 
   - Managers must not attempt to start an incrementing burst that crosses a 1KB address boundary.
   - Managers can perform single transfers using either:
