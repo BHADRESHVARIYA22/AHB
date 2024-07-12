@@ -345,7 +345,7 @@ If Write_Strobes is not declared, it is considered as False.
     - When the HTRANS transfer type changes to SEQ the Master must keep HTRANS constant, until HREADY is HIGH.
     - Note : Because BUSY transfers must only be inserted between successive beats of a burst, this does not apply to SINGLE bursts. Therefore this situation applies to the following burst types:
       - INCR4, INCR8, and INCR16.
-      - WRAP4, WRAP8, and WRAP16.
+      - WRAP4, WRAP8, and WRAP16.   
      ![image](https://github.com/user-attachments/assets/1a7d3436-cfa7-4897-9c48-581c9615d1ca)
     - **T0-T1** The Manager initiates the next beat of the INCR4 burst to address 0x24.
     - **T1-T3** The Manager inserts a BUSY transfer to address 0x28.The Subordinate inserts wait states with HREADYOUT = LOW.
