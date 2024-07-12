@@ -261,7 +261,7 @@ If Write_Strobes is not declared, it is considered as False.
   - #### write transfer using a four-beat wrapping burst, with a wait state added for the first transfer.
   - Lower and Upper Boundary Calculation
     - HSIZE = 2  :: single transfer size = 4 byte
-    - total byte = single transfer size + brust length = 4 + 4 = 16 byte
+    - total byte = single transfer size X brust length = 4 X 4 = 16 byte
     - Start Address = 38d = 56d
     - LB = 56 - (56/16) = 56 - 8 = **48d** = **30h**
     - UB = 48 + 16 = **64d** = **40h**
@@ -280,6 +280,21 @@ If Write_Strobes is not declared, it is considered as False.
    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4faab50e-e242-4092-bc37-293887f30bb3)  
   - In this case, the address does not wrap at a 16-byte boundary and the address 0x3C is followed by a transfer to address 0x40.
   - #### read transfer using an eight-beat wrapping burst.
+  -  Lower and Upper Boundary Calculation
+    - HSIZE = 2  :: single transfer size = 4 byte
+    - total byte = single transfer size X brust length = 4 X 8 = 32 byte
+    - Start Address = 34d = 52d
+    - LB = 52 - (52/32) = 52 - 20 = **32d** = **20h**
+    - UB = 48 + 16 = **64d** = **40h**
+    - 1st Address = 32d  = 20h
+    - 2nd Address = 36d (48 + 4) = 24h
+    - 3rd Address = 40d (56 + 4) = 28h
+    - 4th Address = 44d (56 + 4) = 2Ch
+    - 5th Address = 48d (56 + 4) = 30h
+    - 6th Address = 52d (56 + 4) = 34h
+    - 7th Address = 56d (56 + 4) = 38h
+    - 8th Address = 60d (56 + 4) = 3Ch
+     
     ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/c47f61bb-95c6-4278-8218-848f16e19bc1)
   - the burst is an eight-beat burst of word transfers, the address wraps at 32-byte boundaries, and the transfer to address 0x3C is followed by a transfer to address 0x20.
   - ##### write transfer using an eight-beat incrementing burst.  
