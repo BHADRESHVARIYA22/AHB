@@ -272,7 +272,11 @@ If Write_Strobes is not declared, it is considered as False.
       
     ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/8cabc735-01e5-4cb0-b3a2-c751d00b0af0) 
   - the burst is a four-beat burst of word transfers, the address wraps at 16-byte boundaries, and the transfer to address 0x3C is followed by a transfer to address 0x30.  
-  - #### read transfer using a four-beat incrementing burst, with a wait state added for the first transfer.  
+  - #### read transfer using a four-beat incrementing burst, with a wait state added for the first transfer.
+    - 1st Address = 56d   = 38h
+    - 2nd Address = 60d (56 + 4) = 3Ch
+    - 3rd Address = 64d (60 + 4) = 40h
+    - 4th Address = 68d (64 + 4) = 44h
    ![image](https://github.com/BHADRESHVARIYA22/AHB/assets/87941725/4faab50e-e242-4092-bc37-293887f30bb3)  
   - In this case, the address does not wrap at a 16-byte boundary and the address 0x3C is followed by a transfer to address 0x40.
   - #### read transfer using an eight-beat wrapping burst.
