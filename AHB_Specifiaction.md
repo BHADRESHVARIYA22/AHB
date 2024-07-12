@@ -387,6 +387,21 @@ If Write_Strobes is not declared, it is considered as False.
       - T3-T4 The Subordinate responds with ERROR.
       - T4-T5 The Manager changes the transfer type to IDLE and is permitted to change the address while HREADY is LOW. The Subordinate completes the ERROR response.
       - T5-T6 The Subordinate at address 0xC0 responds with OKAY.
+## 3.8 Protection control 
+  -**Pending** : At last  
+## 3.9 Memory types  
+  - **Pending** : At last
+## 3.10 Secure transfers 
+  - **Pending** : At last
+
+# 4. Bus Interconnection 
+  - It contains the following sections:
+    - Interconnect
+    - Address decoding
+    - Read data and response multiplexor
+  - ## 4.1 Interconnect
+  - ## 4.2 Address decoding
+  - ## 4.3 Read data and response multiplexor
         
 
 
