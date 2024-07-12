@@ -28,5 +28,7 @@
     - apb_seqs.sv
   - TOP
     - apb_apb_tb.sv
-# 3. Test bench Initial Architecture
+# 3. Test bench Initial Architecture   
+  ![image](https://github.com/user-attachments/assets/fd46f4d6-2500-4783-8239-1e68d9a0ceab)   
+
     
