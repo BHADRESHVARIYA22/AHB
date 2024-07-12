@@ -146,12 +146,15 @@
 # 3.Transfer  
 ## 3.1 Basic Transfers  
   - A transfer consists of two phases:  
-    - **Address** Lasts for a single HCLK cycle unless it is extended by the previous bus transfer.  
-    - **Data** Might require several HCLK cycles. Use the HREADY signal to control the number of clock cycles required to complete the transfer.  
-  - **HWRITE** controls the direction of data transfer to or from the Manager. Therefore, when:
-    - HWRITE is **HIGH**, it indicates a **write** transfer and the Manager broadcasts data on the write data bus,HWDATA.
-    - HWRITE is **LOW**, a **read** transfer is performed, and the Subordinate must generate the data on the read data bus, HRDATA.
+    - **1. Address phase** Lasts for a single HCLK cycle unless it is extended by the previous bus transfer.  
+    - **2. Data phase** Might require several HCLK cycles. Use the HREADY signal to control the number of clock cycles required to complete the transfer.  
+  - **HWRITE** controls the direction of data transfer to or from the master. Therefore, when:
+    - **HIGH**, it indicates a **write** transfer and the master broadcasts data on the write data bus,HWDATA.
+    - **LOW**, a **read** transfer is performed, and the slave must generate the data on the read data bus, HRDATA.
   - The simplest transfer is one with no wait states, so the transfer consists of one address cycle and one data cycle.
+  - **HREADY**
+    - **HIGH** : Slave ready to read or write data
+    - **LOW**  : Slave is busy with another Work it can not ready
   - ### **Transfer with no wait states**
   - Figure 3-1 shows a simple read transfer and Figure 3-2 shows a simple write transfer.
 
