@@ -330,16 +330,16 @@ If Write_Strobes is not declared, it is considered as False.
       - BUSY transfer, fixed-length burst
       - BUSY transfer, undefined length burst
     - #### IDLE transfer
-    - During a waited transfer, the Manager is permitted to change the transfer type from IDLE to NONSEQ.
-    - When the HTRANS transfer type changes to NONSEQ the Manager must keep HTRANS constant, until HREADY is HIGH.
+    - During a waited transfer, the Master is permitted to change the transfer type from IDLE to NONSEQ.
+    - When the HTRANS transfer type changes to NONSEQ the Master must keep HTRANS constant, until HREADY is HIGH.
      ![image](https://github.com/user-attachments/assets/405c0ef0-46d4-4d62-a0d8-caf1e487a9ee)
-    - **T0-T1** The Manager initiates a SINGLE burst to address A.
-    - **T1-T2** The Manager inserts one IDLE transfer to address Y. The Subordinate inserts a wait state with HREADYOUT = LOW.
-    - **T2-T3** The Manager inserts one IDLE transfer to address Z.
-    - **T3-T4** The Manager changes the transfer type to NONSEQ and initiates an INCR4 transfer to address B.
-    - **T4-T6** With HREADY LOW, the Manager must keep HTRANS constant.
-    - **T5-T6** SINGLE burst to address A completes with HREADY HIGH and the Manager starts the first beat to address B.
-    - **T6-T7** First beat of the INCR4 transfer to address B completes and the Manager starts the next beat to address B+4.
+    - **T0-T1** The Master initiates a SINGLE burst to address A.
+    - **T1-T2** The Master inserts one IDLE transfer to address Y. The Slave inserts a wait state with HREADYOUT = LOW.
+    - **T2-T3** The Master inserts one IDLE transfer to address Z.
+    - **T3-T4** The Master changes the transfer type to NONSEQ and initiates an INCR4 transfer to address B.
+    - **T4-T6** With HREADY LOW, the Master must keep HTRANS constant.
+    - **T5-T6** SINGLE burst to address A completes with HREADY HIGH and the Master starts the first beat to address B.
+    - **T6-T7** First beat of the INCR4 transfer to address B completes and the Master starts the next beat to address B+4.
     - #### BUSY transfer, fixed-length burst
     - During a waited transfer for a fixed-length burst, the Master is permitted to change the transfer type from BUSY to SEQ.
     - When the HTRANS transfer type changes to SEQ the Master must keep HTRANS constant, until HREADY is HIGH.
@@ -347,46 +347,46 @@ If Write_Strobes is not declared, it is considered as False.
       - INCR4, INCR8, and INCR16.
       - WRAP4, WRAP8, and WRAP16.   
      ![image](https://github.com/user-attachments/assets/1a7d3436-cfa7-4897-9c48-581c9615d1ca)
-    - **T0-T1** The Manager initiates the next beat of the INCR4 burst to address 0x24.
-    - **T1-T3** The Manager inserts a BUSY transfer to address 0x28.The Subordinate inserts wait states with HREADYOUT = LOW.
-    - **T3-T4** The Manager changes the transfer type to SEQ and initiates the next beat of the burst to address 0x28.
-    - **T4-T6** With HREADY LOW, the Manager must keep HTRANS constant.
+    - **T0-T1** The Master initiates the next beat of the INCR4 burst to address 0x24.
+    - **T1-T3** The Master inserts a BUSY transfer to address 0x28.The Slave inserts wait states with HREADYOUT = LOW.
+    - **T3-T4** The Master changes the transfer type to SEQ and initiates the next beat of the burst to address 0x28.
+    - **T4-T6** With HREADY LOW, the Master must keep HTRANS constant.
     - **T5-T6** Beat to address 0x24 completes with HREADY HIGH.
-    - **T6-T7** Third beat of the INCR4 transfer to address 0x28 completes and the Manager starts the final beat to address 0x2C.
+    - **T6-T7** Third beat of the INCR4 transfer to address 0x28 completes and the Master starts the final beat to address 0x2C.
     - #### BUSY transfer, undefined length burst
     - During a waited transfer for an undefined length burst, INCR, the master is permitted to change from BUSY to any other transfer type, when HREADY is LOW.
     - The burst continues if a SEQ transfer is performed but terminates if an IDLE or NONSEQ transfer is performed.
       ![image](https://github.com/user-attachments/assets/cc2a1b63-8b8e-486a-946c-2f57a07eff51)
 
-    - **T0-T1** The Manager initiates the next beat of the INCR burst to address 0x64.
-    - **T1-T3** The Manager inserts a BUSY transfer to address 0x68.The Subordinate inserts wait states with HREADYOUT = LOW.
-    - **T3-T4** The Manager changes the transfer type to NONSEQ and initiates a new burst to address 0x10.
-    - **T4-T6** With HREADY LOW, the Manager must keep HTRANS constant.
-    - **T5-T6** Undefined length burst completes with HREADY HIGH and the Manager starts the first beat to address 0x10.
-    - **T6-T7** First beat of the INCR4 transfer to address 0x10 completes and the Manager starts the next beat to address 0x14.
+    - **T0-T1** The Master initiates the next beat of the INCR burst to address 0x64.
+    - **T1-T3** The Master inserts a BUSY transfer to address 0x68.The Slave inserts wait states with HREADYOUT = LOW.
+    - **T3-T4** The Master changes the transfer type to NONSEQ and initiates a new burst to address 0x10.
+    - **T4-T6** With HREADY LOW, the Master must keep HTRANS constant.
+    - **T5-T6** Undefined length burst completes with HREADY HIGH and the Master starts the first beat to address 0x10.
+    - **T6-T7** First beat of the INCR4 transfer to address 0x10 completes and the Master starts the next beat to address 0x14.
   - ### 3.7.2 Address changes during wait states
     - When the Slave is requesting wait states, the Master can only change the address once, except as described in:
       - During an IDLE transfer
       - After an ERROR response
       - #### During an IDLE transfer
-      - During a waited transfer, the Manager is permitted to change the address for IDLE transfers. When the HTRANS
-      - transfer type changes to NONSEQ, the Manager must keep the address constant until HREADY is HIGH.   
+      - During a waited transfer, the Master is permitted to change the address for IDLE transfers. When the HTRANS
+      - transfer type changes to NONSEQ, the Master must keep the address constant until HREADY is HIGH.   
       ![image](https://github.com/user-attachments/assets/4f2c5799-6d35-4869-b7d0-21a33abaf49d)
-      - T0-T1 The Manager initiates a SINGLE burst to address A.
-      - T1-T2 The Manager inserts one IDLE transfer to address Y. The Subordinate inserts a wait state with HREADYOUT = LOW.
-      - T2-T3 The Manager inserts one IDLE transfer to address Z.
-      - T3-T4 The Manager changes the transfer type to NONSEQ and initiates an INCR4 transfer to address B. Until HREADY goes HIGH, no more address changes are permitted.
-      - T5-T6 SINGLE burst to address A completes with HREADY HIGH and the Manager starts the first beat to address B.
-      - T6-T7 First beat of the INCR4 transfer to address B completes and the Manager starts the next beat to address B+4.   
+      - T0-T1 The Master initiates a SINGLE burst to address A.
+      - T1-T2 The Master inserts one IDLE transfer to address Y. The Slave inserts a wait state with HREADYOUT = LOW.
+      - T2-T3 The Master inserts one IDLE transfer to address Z.
+      - T3-T4 The Master changes the transfer type to NONSEQ and initiates an INCR4 transfer to address B. Until HREADY goes HIGH, no more address changes are permitted.
+      - T5-T6 SINGLE burst to address A completes with HREADY HIGH and the Master starts the first beat to address B.
+      - T6-T7 First beat of the INCR4 transfer to address B completes and the Master starts the next beat to address B+4.   
 
       - #### After an ERROR response
-      - During a waited transfer, if the Subordinate responds with an ERROR response, then the Manager is permitted to change the address when HREADY is LOW
+      - During a waited transfer, if the Slave responds with an ERROR response, then the Master is permitted to change the address when HREADY is LOW
         ![image](https://github.com/user-attachments/assets/83907d69-e229-4d37-b6ac-281219e8d884)
-      - T0-T1 The Manager initiates the next beat of the burst to address 0x24.
-      - T1-T3 The Manager initiates the next beat of the burst to address 0x28.The Subordinate responds with OKAY.
-      - T3-T4 The Subordinate responds with ERROR.
-      - T4-T5 The Manager changes the transfer type to IDLE and is permitted to change the address while HREADY is LOW. The Subordinate completes the ERROR response.
-      - T5-T6 The Subordinate at address 0xC0 responds with OKAY.
+      - T0-T1 The Master initiates the next beat of the burst to address 0x24.
+      - T1-T3 The Master initiates the next beat of the burst to address 0x28.The Slave responds with OKAY.
+      - T3-T4 The Slave responds with ERROR.
+      - T4-T5 The Master changes the transfer type to IDLE and is permitted to change the address while HREADY is LOW. The Slave completes the ERROR response.
+      - T5-T6 The Slave at address 0xC0 responds with OKAY.
 ## 3.8 Protection control 
   -**Pending** : At last  
 ## 3.9 Memory types  
@@ -400,7 +400,23 @@ If Write_Strobes is not declared, it is considered as False.
     - Address decoding
     - Read data and response multiplexor
   - ## 4.1 Interconnect
+    - An interconnect component provides the connection between Masters and Slaves in a system.
+    - A single Master system only requires the use of a Decoder and Multiplexor, as described in the following sections.
+    - A multi-Master system requires the use of an interconnect that provides arbitration and the routing of signals from different Masters to the appropriate Slaves.
+    - This routing is required for address, control, and write data signaling.
+    - Further details of the different approaches used for multi-Master systems, such as single layer or multi-layer interconnects, are not provided within this specification.
+    - See Multi-layer AHB Technical Overview (ARM DVI 0045) for more information about implementing a multi-layer AHB-Lite interconnect.
   - ## 4.2 Address decoding
+    - An address decoder provides a select signal, HSELx, for each Slave on the bus.
+    - Simple address decoding schemes are encouraged to avoid complex decode logic and to ensure high-speed operation.
+    - A Slave must only sample the HSELx, address, and control signals when HREADY is HIGH, indicating that the current transfer is completing.
+    - Under certain circumstances, it is possible that HSELx is asserted when HREADY is LOW, but the selected Slave has changed by the time the current transfer completes.
+    - See Address changes during wait states on topic : 3.7.2
+    - The minimum address space that can be allocated to a single Slave is 1KB, and the start and the end of the address region must exist on a 1KB boundary.
+    - All Masters are designed so that they do not perform incrementing transfers over a 1KB address boundary.
+    - This ensures that a burst never crosses an address decode boundary.
+      ![image](https://github.com/user-attachments/assets/8baa20f7-cf4d-41a3-b921-49dc1496cd59)
+    -  
   - ## 4.3 Read data and response multiplexor
         
 
