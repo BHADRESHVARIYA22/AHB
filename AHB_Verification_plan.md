@@ -62,13 +62,21 @@
     - M_DRV_MP       : Modport For Driver
     - M_MON_MP       : Modport For Monitor
 
-  - **Sequence Item**
-    - ahb_master_seqs_items : Master Sequnece Item parameterize Class
+  - **define**
     - **enum use in Sequence Item**
       - enum bit {HREAD, HWRITE} trans_kind;
         - Used to set Direction of transfer  
       - enum bit [1:0] {SINGLE, INCR, WRAP} burst_type;
         - Used to 
       - enum bit [1:0] {OKAY, DECODE_ERROR, RETRY, SPLIT} resp_type;
-        - Used to
+        - Used to   
+  - **Sequence Item**
+    - ahb_master_seqs_items #(AW,DW,SEL_WD) : Master Sequnece Item parameterize Class
+    - **Variables**
+      - **kind_e** : trans_kind type Used to set Direction of transfer
+        - HREAD  : Read Data
+        - HWRITE : Write Data
+      - **burst_type_e** : Set type of brust
+        - SINGLE,WRAP,INCR
+      - 
     
