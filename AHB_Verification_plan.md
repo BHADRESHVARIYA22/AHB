@@ -48,6 +48,27 @@
   - **TOP**
     - ahb_tb_top.sv
 # 3. Test bench Initial Architecture   
-  ![image](https://github.com/user-attachments/assets/fd46f4d6-2500-4783-8239-1e68d9a0ceab)   
+  ![image](https://github.com/user-attachments/assets/fd46f4d6-2500-4783-8239-1e68d9a0ceab)    
+# 4. Short Form use in comment Section
+  - MP : Modport
+  - CB : Clocking Block
+  - T  : Task
+  - F  : Function
+# 5. Master Agenrt Entity
+  - **Interface** 
+    - ahb_master_inf : Interace for Master
+    - master_drv_cb  : Clocking Block for Driver
+    - master_mon_cb  : Clocking Block for Monitor
+    - M_DRV_MP       : Modport For Driver
+    - M_MON_MP       : Modport For Monitor
 
+  - **Sequence Item**
+    - ahb_master_seqs_items : Master Sequnece Item parameterize Class
+    - **enum use in Sequence Item**
+      - enum bit {HREAD, HWRITE} trans_kind;
+        - Used to set Direction of transfer  
+      - enum bit [1:0] {SINGLE, INCR, WRAP} burst_type;
+        - Used to 
+      - enum bit [1:0] {OKAY, DECODE_ERROR, RETRY, SPLIT} resp_type;
+        - Used to
     
