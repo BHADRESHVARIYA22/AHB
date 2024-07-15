@@ -78,5 +78,19 @@
         - HWRITE : Write Data
       - **burst_type_e** : Set type of brust
         - SINGLE,WRAP,INCR
-      - 
+  -  **Handle**
+  -  Enviroment Class
+    -  ahb_env_config   env_config;
+    -  ahb_master_uvc   master_uvc;
+ -  UVC
+   -   ahb_master_config master_config_h[];
+   -   ahb_env_config env_config;
+   -   ahb_master_agent #(32,64,4) master_agent_h[];
+-  Master Agent
+  -  ahb_master_driver    #(AW,DW,SEL_WD)  master_drv_h;     // Driver Hanle
+  -  ahb_master_monitor   #(AW,DW,SEL_WD)  master_mon_h;     // Monitor Handle
+  -  ahb_master_seqr      #(AW,DW,SEL_WD)  master_seqr_h;    // Sequencer Handle
+  -  ahb_master_config                     master_config_h;  // Config DB Handle
+  -  virtual ahb_master_inf#(AW,DW,SEL_WD) ahb_master_vif; // Virtual Inteface
+
     
