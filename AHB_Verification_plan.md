@@ -49,48 +49,19 @@
     - ahb_tb_top.sv
 # 3. Test bench Initial Architecture   
   ![image](https://github.com/user-attachments/assets/fd46f4d6-2500-4783-8239-1e68d9a0ceab)    
-# 4. Short Form use in comment Section
-  - MP : Modport
-  - CB : Clocking Block
-  - T  : Task
-  - F  : Function
-# 5. Master Agenrt Entity
-  - **Interface** 
-    - ahb_master_inf : Interace for Master
-    - master_drv_cb  : Clocking Block for Driver
-    - master_mon_cb  : Clocking Block for Monitor
-    - M_DRV_MP       : Modport For Driver
-    - M_MON_MP       : Modport For Monitor
 
-  - **define**
-    - **enum use in Sequence Item**
-      - enum bit {HREAD, HWRITE} trans_kind;
-        - Used to set Direction of transfer  
-      - enum bit [1:0] {SINGLE, INCR, WRAP} burst_type;
-        - Used to 
-      - enum bit [1:0] {OKAY, DECODE_ERROR, RETRY, SPLIT} resp_type;
-        - Used to   
-  - **Sequence Item**
-    - ahb_master_seqs_items #(AW,DW,SEL_WD) : Master Sequnece Item parameterize Class
-    - **Variables**
-      - **kind_e** : trans_kind type Used to set Direction of transfer
-        - HREAD  : Read Data
-        - HWRITE : Write Data
-      - **burst_type_e** : Set type of brust
-        - SINGLE,WRAP,INCR
-  -  **Handle**
-  -  Enviroment Class
-    -  ahb_env_config   env_config;
-    -  ahb_master_uvc   master_uvc;
- -  UVC
-   -   ahb_master_config master_config_h[];
-   -   ahb_env_config env_config;
-   -   ahb_master_agent #(32,64,4) master_agent_h[];
--  Master Agent
-  -  ahb_master_driver    #(AW,DW,SEL_WD)  master_drv_h;     // Driver Hanle
-  -  ahb_master_monitor   #(AW,DW,SEL_WD)  master_mon_h;     // Monitor Handle
-  -  ahb_master_seqr      #(AW,DW,SEL_WD)  master_seqr_h;    // Sequencer Handle
-  -  ahb_master_config                     master_config_h;  // Config DB Handle
-  -  virtual ahb_master_inf#(AW,DW,SEL_WD) ahb_master_vif; // Virtual Inteface
-
-    
+# 4. AHB_MASTER_AGENT
+  - ## ahb_master_uvc
+    - Wrapper of All master Agents
+    - It Create and Config Master agent
+    - It has two subcomponents   : **ahb_master_agent** and **ahb_master_config** (object type)
+      - ### Get no_of_agent Need to create from Enviroment (using **ahb_env_config**)
+        - Take handle of Agent and Config DB as Dynamic array and Allocate size as per env config data
+          - master_agent_h  = new [env_config.no_of_agent]
+          - master_config_h = new [env_config.no_of_agent]
+        - Iterate Loop no_of_agent times each iteration do following steps
+          - Create master_config & and set variable "is_active" to ACTIVE or PASSIVE as per Requirement
+          - Than Create agent
+        - After Completed loop set master_config and Call agent "set_index" method to set index of Agent.
+          Code :
+          ![image](https://github.com/user-attachments/assets/60196d16-cbe6-455b-b8fe-924a6e46f044)
