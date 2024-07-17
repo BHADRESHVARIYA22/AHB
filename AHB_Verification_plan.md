@@ -65,3 +65,13 @@
         - After Completed loop set master_config and Call agent "set_index" method to set index of Agent.
           Code :
           ![image](https://github.com/user-attachments/assets/60196d16-cbe6-455b-b8fe-924a6e46f044)
+  - ## ahb_master_agent
+    - Wrapper on Driver, Monitor and Sequecer
+    - Take Handle of master_driver, master_monitor, master_sequencer ,master_config &  virtual Inteface
+    - Create master_monitor and master_confg & call monitor set_index method and pass index values
+    - Assign Virtual Interace to  Monitor Virtual Interfcae
+    - Get master_config data And check is_active Value .
+    - if is_active value == ACTIVE
+      - than Create master_driver and master_sequencer & call set_index method of both to set its index values
+      - connect Driver seq_item_port to sequencer seq_item_export
+      - Assign Virtual Interace to  Driver Virtual Interfcae
