@@ -251,7 +251,14 @@ If Write_Strobes is not declared, it is considered as False.
     - Undefined length burst that has a burst of length one.
   - The burst size indicates the number of beats in the burst and not the number of bytes transferred.  
   - Calculate the total amount of data transferred in a burst by multiplying the number of beats by the amount of data in each beat, as indicated by HSIZE[2:0].
-  -  
+  - 
+  - 1KB boundary is formed by memory locations 0 - 1023, 1024 - 2047, 2048 - 3071 …
+
+Spec says that master cannot cross 1KB boundary with any burst transfers, it means address cannot go in a sequence of 1022, 1023, 1024(1KB Crossed), 1025. (E.g. burst on INCR4). If you calculate addresses for WRAP4 with starting address 1022, it’ll wrap after 1023 to 1021.
+
+Try different combinations of HSIZE WRAPx and HADDR, you’ll observe that wrap transfers will never cross 1KB boundary.
+
+Constraint of 1KB boundary is there in AHB because, each AHB slave can have min 1KB of addressable memory and by ensuring 1KB boundary we make sure that no burst transfer crosses from one slave to another. 
 
 ### 3.6.3  Burst operation
   - #### write transfer using a four-beat wrapping burst, with a wait state added for the first transfer.
