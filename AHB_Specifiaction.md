@@ -208,20 +208,24 @@ control the overall progress.
     - It is required that all transfers in a locked sequence are to the same slave address region.  
     - Note : The requirement to ensure that all transfers in a locked sequence are to the same slave address region did not exist in Issue A of this specification. A legacy component must be verified to ensure that it does not exhibit this behavior.  
    
-## 3.4 Transfer size    
+## 3.4 Transfer size    (HSIZE[2:0])
   - HSIZE[2:0] indicates the size of a data transfer.  
   - The transfer size set by HSIZE must be less than or equal to the width of the data bus. For example, with a 32-bit data bus, HSIZE must only use the values 0b000, 0b001, or 0b010.  
   - The HSIZE signals have the same timing as the address bus. However, they must remain constant throughout a burst transfer.   
   - HSIZE in conjunction with HBURST determines the address boundary for wrapping bursts.
   - **Transfer size encoding**
-  - HSIZE = 0 : 1 byte
-  - HSIZE = 1 : 2 byte
-  - HSIZE = 2 : 3 byte
-  - HSIZE = 3 : 4 byte
-  - HSIZE = 4 : 5 byte
-  - HSIZE = 5 : 6 byte
-  - HSIZE = 6 : 7 byte
-  - HSIZE = 7 : 8 byte
+    - ### Formula
+    - **no_of_bytes = 2 ^ HSIZE;**
+    
+  - HSIZE     : no_of_bytes  
+  - 0         : 1 byte
+  - 1         : 2 byte
+  - 2         : 3 byte
+  - 3         : 4 byte
+  - 4         : 5 byte
+  - 5         : 6 byte
+  - 6         : 7 byte
+  - 7         : 8 byte
 
 ## 3.5 Write strobes pending **************
 Write strobes is an optional feature, which enables a master to issue a write that updates only a subset of active
